@@ -13,7 +13,6 @@ AutoMed Agent is a smart, multi-agent system built to help with:
 
 ## 🔄 Architecture Overview
 
-```mermaid
 graph TD
     UI[User Interface (Streamlit)] Query Orchestrator
     Orchestrator |Research| LiteratureAgent
