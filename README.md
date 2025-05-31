@@ -1,4 +1,4 @@
-# AutoMed Agent 🩼🧪
+# AutoMed Agent 
 
 > **An AI-powered medical assistant using Generative AI + RAG + Agentic Workflows**
 
@@ -15,12 +15,12 @@ AutoMed Agent is a smart, multi-agent system built to help with:
 
 ```mermaid
 graph TD
-    UI[User Interface (Streamlit)] -->|Query| Orchestrator
-    Orchestrator -->|Research| LiteratureAgent
-    Orchestrator -->|Diagnosis| DiagnosisAgent
-    LiteratureAgent -->|Query PubMed FAISS| RAGModule
-    DiagnosisAgent -->|Analyze Text| GPTModule
-    DiagnosisAgent -->|Lookup| ICD10DB
+    UI[User Interface (Streamlit)] |Query| Orchestrator
+    Orchestrator |Research| LiteratureAgent
+    Orchestrator |Diagnosis| DiagnosisAgent
+    LiteratureAgent |Query PubMed FAISS| RAGModule
+    DiagnosisAgent |Analyze Text| GPTModule
+    DiagnosisAgent |Lookup| ICD10DB
 ```
 
 * **Orchestrator**: Determines query type and routes to the right agent
