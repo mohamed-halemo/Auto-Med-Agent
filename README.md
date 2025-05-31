@@ -14,12 +14,12 @@ AutoMed Agent is a smart, multi-agent system built to help with:
 ## 🔄 Architecture Overview
 
 graph TD
-    UI[User Interface (Streamlit)] Query Orchestrator
-    Orchestrator |Research| LiteratureAgent
-    Orchestrator |Diagnosis| DiagnosisAgent
-    LiteratureAgent |Query PubMed FAISS| RAGModule
-    DiagnosisAgent |Analyze Text| GPTModule
-    DiagnosisAgent |Lookup| ICD10DB
+    UI[User Interface (Streamlit)] -->|Query| Orchestrator
+    Orchestrator -->|Research| LiteratureAgent
+    Orchestrator -->|Diagnosis| DiagnosisAgent
+    LiteratureAgent -->|Query PubMed FAISS| RAGModule
+    DiagnosisAgent -->|Analyze Text| GPTModule
+    DiagnosisAgent -->|Lookup| ICD10DB
 ```
 
 * **Orchestrator**: Determines query type and routes to the right agent
