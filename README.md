@@ -15,7 +15,7 @@ AutoMed Agent is a smart, multi-agent system built to help with:
 
 ```mermaid
 graph TD
-    UI[User Interface (Streamlit)] |Query| Orchestrator
+    UI[User Interface (Streamlit)] Query Orchestrator
     Orchestrator |Research| LiteratureAgent
     Orchestrator |Diagnosis| DiagnosisAgent
     LiteratureAgent |Query PubMed FAISS| RAGModule
