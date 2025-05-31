@@ -149,4 +149,4 @@ MIT
 
 ## 🚀 Author
 
-Built by \[Mohamed Hafez] | AI Research Engineer | 2025
+Built by Mohamed Hafez | AI Research Engineer | 2025
