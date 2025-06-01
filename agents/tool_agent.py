@@ -22,4 +22,4 @@ class ToolUsingAgent:
             last_memory = self.memory[-3:]
             full_context = "\n".join([f"Q: {q}\nA: {a}" for q, a, _ in last_memory])
             query_with_context = f"{full_context}\nQ: {query}" if full_context else query
-            return self.rag_agent.run(query_with_context)
+            return self.rag_agent.run(query)

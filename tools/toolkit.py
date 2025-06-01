@@ -2,43 +2,55 @@ import math
 import requests
 from xml.etree import ElementTree as ET
 
-# Function to search PubMed for articles related to a query string
+import requests
+from xml.etree import ElementTree as ET
+
 def pubmed_search(query: str) -> str:
     # Base URL for NCBI E-utilities API
     base_url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
-    search_url = base_url + "esearch.fcgi"  # For finding article IDs (PMIDs)
-    fetch_url = base_url + "efetch.fcgi"    # (Optional) For fetching full article data
+    search_url = base_url + "esearch.fcgi"
+    fetch_url = base_url + "efetch.fcgi"
 
-    # Step 1: Search for article PMIDs using the query string
-    params = {
-        "db": "pubmed",       # Search the PubMed database
-        "term": query,        # The search term entered by the user
-        "retmode": "xml",     # Return results in XML format
-        "retmax": "3"         # Return only the top 3 results
+    # Step 1: Search for article PMIDs
+    search_params = {
+        "db": "pubmed",
+        "term": query,
+        "retmode": "xml",
+        "retmax": "3"
     }
-    response = requests.get(search_url, params=params)
-    
-    # Check for request failure
-    if response.status_code != 200:
-        return "PubMed search failed."
 
-    # Parse the XML response to extract PMIDs
-    root = ET.fromstring(response.text)
-    pmids = [id_tag.text for id_tag in root.findall(".//Id")]
+    search_response = requests.get(search_url, params=search_params)
+    if search_response.status_code != 200:
+        return " PubMed search failed."
 
-    # If no PMIDs found, return appropriate message
+    search_root = ET.fromstring(search_response.text)
+    pmids = [id_tag.text for id_tag in search_root.findall(".//Id")]
+
     if not pmids:
-        return "No articles found."
+        return "🔍 No articles found."
 
-    # Step 2: Create direct PubMed URLs for the found articles
-    article_links = [f"https://pubmed.ncbi.nlm.nih.gov/{pmid}" for pmid in pmids]
-    result_text = "Top PubMed articles:\n" + "\n".join(article_links)
-    
-    # Return formatted string with top article links
-    return result_text
+    # Step 2: Fetch article details using efetch
+    fetch_params = {
+        "db": "pubmed",
+        "id": ",".join(pmids),
+        "retmode": "xml"
+    }
 
+    fetch_response = requests.get(fetch_url, params=fetch_params)
+    if fetch_response.status_code != 200:
+        return " Failed to fetch article details."
 
-import requests
+    fetch_root = ET.fromstring(fetch_response.text)
+    articles = fetch_root.findall(".//PubmedArticle")
+
+    results = [" **Top PubMed Articles:**\n"]
+    for i, article in enumerate(articles):
+        pmid = article.findtext(".//PMID")
+        title = article.findtext(".//ArticleTitle")
+        link = f"https://pubmed.ncbi.nlm.nih.gov/{pmid}"
+        results.append(f"{i+1}. [{title}]({link})")
+
+    return "\n".join(results)
 
 
 def clinical_trial_search(condition: str):

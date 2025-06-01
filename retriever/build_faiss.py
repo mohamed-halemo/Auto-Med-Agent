@@ -16,7 +16,7 @@ def build_faiss_index(data_path="data/pubmed_papers", index_path="data/faiss_ind
     """
     
     # Load a pre-trained SentenceTransformer for embedding text chunks
-    model = SentenceTransformer("all-MiniLM-L6-v2")
+    model = SentenceTransformer("pritamdeka/BioBERT-mnli-snli-scinli-scitail-mednli-stsb")
 
     documents = []
 

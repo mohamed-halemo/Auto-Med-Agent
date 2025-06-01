@@ -2,7 +2,7 @@ import streamlit as st
 from agents.literature_agent import LiteratureAgent
 from agents.tool_agent import ToolUsingAgent
 from PyPDF2 import PdfReader
-from utils.helper import save_uploaded_pdf,save_uploaded_text,rebuild_index
+from utils.helper import save_uploaded_pdf, save_uploaded_text, rebuild_index
 
 # --- Streamlit UI ---
 
@@ -12,7 +12,7 @@ st.title("🤖 Auto-Med-Agent — Hugging Face Edition")
 
 st.markdown(
     """
-    Upload medical articles (.txt or .pdf), rebuild the search index, then ask questions.
+    Upload medical articles (.txt or .pdf), rebuild the search index, then ask questions.  
     The AI agent uses a mix of retrieval and tools to answer your queries.
     """
 )
@@ -25,7 +25,7 @@ if uploaded_file:
         save_uploaded_pdf(uploaded_file)
     else:
         save_uploaded_text(uploaded_file)
-    st.success(" File uploaded! Please rebuild the index to include this document.")
+    st.success("File uploaded! Please rebuild the index to include this document.")
 
 # Index rebuild button
 if st.button("🔄 Rebuild Index"):
@@ -43,14 +43,28 @@ if "history" not in st.session_state:
 if "chat_memory" not in st.session_state:
     st.session_state.chat_memory = []
 
+# --- USER GUIDANCE ---
+
+st.markdown(
+    """
+    ### How to use the search box:
+    - To ask general medical questions, simply type your question normally.
+    - To search **PubMed**, start your query with the keyword `pubmed` followed by your search terms.  
+      _Example: `pubmed COVID-19 treatment`_
+    - To search **Clinical Trials**, start your query with the keyword `clinical trial` followed by the condition or topic.  
+      _Example: `clinical trial lung cancer`_
+    - The agent can also perform other tool-based queries depending on your input.
+    """
+)
+
 # User query input
-query = st.text_input("Enter your medical question:")
+query = st.text_input("Enter your medical question or tool command:")
 
 # Search button and query processing
 if st.button("🔍 Search") and query.strip():
     agent = ToolUsingAgent(memory=st.session_state.chat_memory)
     answer, summary = agent.run(query.strip())
-    
+
     # Append to history and memory
     st.session_state.history.append((query.strip(), answer, summary))
     st.session_state.chat_memory.append((query.strip(), answer, summary))

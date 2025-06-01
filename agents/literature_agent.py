@@ -11,10 +11,10 @@ class LiteratureAgent:
         Initializes the LiteratureAgent by loading the models and precomputed index.
         """
         # Load a sentence transformer for embedding queries
-        self.model = SentenceTransformer("all-MiniLM-L6-v2")
+        self.model = SentenceTransformer("pritamdeka/BioBERT-mnli-snli-scinli-scitail-mednli-stsb")
 
         # Load a question answering pipeline using a fine-tuned RoBERTa model
-        self.qa_pipeline = pipeline("question-answering", model="deepset/roberta-base-squad2")
+        self.qa_pipeline = pipeline("question-answering", model="ktrapeznikov/biobert_v1.1_pubmed_squad_v2")
 
         # Load a summarization pipeline using a BART model
         self.summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
@@ -25,16 +25,15 @@ class LiteratureAgent:
 
         # Load the FAISS index which allows fast similarity search over embeddings
         self.index = faiss.read_index(os.path.join(index_path, "index.faiss"))
-
     def run(self, query: str) -> tuple[str, str]:
         """
-        Runs a semantic search + QA + summarization pipeline for the input query.
+        Runs a semantic search + QA + guided summarization pipeline for the input query.
 
         Args:
             query (str): The question asked by the user.
 
         Returns:
-            tuple[str, str]: The best answer found, and a summary of the context.
+            tuple[str, str]: The best answer found, and a guided summary of the context.
         """
 
         # Step 1: Embed the input query
@@ -54,15 +53,20 @@ class LiteratureAgent:
         for context in top_contexts:
             result = self.qa_pipeline(question=query, context=context)
 
-            # If the score is higher than previous, update the best answer
             if result["score"] > best_score:
                 best_answer = result["answer"]
                 best_score = result["score"]
 
-                # Step 5: Summarize the context (limit to 1000 characters to fit model input)
-                summary = self.summarizer(context[:1000])[0]["summary_text"]
+                # Step 5: Guide the summarizer to focus on answering the query
+                prompt = f"""You are an expert assistant. Use the following passage to precisely answer the user's question.
 
-        # Step 6: Return the best answer and its summary (or a fallback message)
+                Question: {query}
+                Passage: {context[:1000]}
+
+                Answer:"""
+                summary = self.summarizer(prompt, max_length=150, min_length=30, do_sample=False)[0]["summary_text"]
+
+
         return (
             best_answer if best_answer else "No confident answer found.",
             summary
