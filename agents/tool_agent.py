@@ -26,4 +26,4 @@ class ToolUsingAgent:
             query_with_context = f"{full_context}\nQ: {query}" if full_context else query
             
             # Pass contextualized query to the RAG agent
-            return self.rag_agent.run(query_with_context)
+            return self.rag_agent.run(query)

@@ -8,7 +8,7 @@ from utils.helper import save_uploaded_pdf,save_uploaded_text,rebuild_index
 
 st.set_page_config(page_title="AutoMed Agent — Hugging Face Edition", layout="centered")
 
-st.title("🤖 AutoMed Agent — Hugging Face Edition")
+st.title("🤖 Auto-Med-Agent — Hugging Face Edition")
 
 st.markdown(
     """
@@ -25,7 +25,7 @@ if uploaded_file:
         save_uploaded_pdf(uploaded_file)
     else:
         save_uploaded_text(uploaded_file)
-    st.success("✅ File uploaded! Please rebuild the index to include this document.")
+    st.success(" File uploaded! Please rebuild the index to include this document.")
 
 # Index rebuild button
 if st.button("🔄 Rebuild Index"):
