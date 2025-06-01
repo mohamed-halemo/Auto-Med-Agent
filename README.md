@@ -42,7 +42,7 @@ graph TD
 
 ---
 
-git clone https://github.com/yourname/automed-ai-agent.git
+git clone https://github.com/mohamed-halemo/automed-ai-agent.git
 cd automed-ai-agent
 
 # Install requirements
