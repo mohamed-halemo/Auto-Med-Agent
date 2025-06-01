@@ -1,4 +1,8 @@
-Title: Emerging Biomarkers for Early Detection of Breast Cancer
-
-Abstract:
-Early detection of breast cancer significantly improves survival rates. Current diagnostic techniques include mammography and ultrasound, but they lack specificity. Recent research identifies circulating tumor DNA (ctDNA) and microRNAs as promising non-invasive biomarkers. This paper discusses the sensitivity and clinical relevance of these molecular tools in the early stages of breast cancer diagnosis.
+Title: Emerging Biomarkers for Early Detection of Breast Cancer
+
+Abstract:
+Early detection of breast cancer is a major determinant of survival and treatment success. Conventional imaging techniques such as mammography, ultrasound, and magnetic resonance imaging (MRI) are routinely used but suffer from limitations including low specificity, radiation exposure, and challenges in detecting tumors in dense breast tissue. As a result, there is growing interest in liquid biopsy-based approaches that utilize non-invasive biomarkers for early diagnosis.
+
+Recent advances in molecular diagnostics have identified promising blood-based biomarkers such as circulating tumor DNA (ctDNA), circulating tumor cells (CTCs), and microRNAs (miRNAs). These molecules reflect real-time tumor dynamics, enabling the detection of malignancy before clinical symptoms appear. ctDNA can reveal tumor-specific genetic alterations, while miRNAs regulate gene expression and show cancer-specific expression profiles.
+
+Clinical studies have shown that these biomarkers offer improved sensitivity and specificity compared to traditional screening tools. Additionally, they hold potential for monitoring treatment response, detecting recurrence, and guiding personalized medicine strategies. This review explores the diagnostic performance, biological significance, and translational applications of ctDNA and miRNAs as emerging tools for early breast cancer detection, with a focus on their integration into clinical workflows.

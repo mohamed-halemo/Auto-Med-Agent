@@ -1,4 +1,10 @@
-Title: Recent Advances in Type 2 Diabetes Management
-
-Abstract:
-Type 2 diabetes mellitus (T2DM) is a metabolic disorder characterized by insulin resistance and chronic hyperglycemia. Recent therapies focus on SGLT2 inhibitors and GLP-1 receptor agonists, which offer improved glycemic control and cardiovascular benefits. This review explores the mechanism, efficacy, and safety of these new drug classes, and highlights the importance of early diagnosis and personalized treatment plans.
+Title: Recent Advances in Type 2 Diabetes Management
+
+Abstract:
+Type 2 diabetes mellitus (T2DM) is a chronic metabolic disorder characterized by insulin resistance, progressive beta-cell dysfunction, and sustained hyperglycemia. It is a major global health concern associated with long-term microvascular (retinopathy, nephropathy, neuropathy) and macrovascular (cardiovascular disease, stroke) complications.
+
+Recent pharmacological advancements have introduced novel therapeutic classes such as sodium-glucose cotransporter-2 (SGLT2) inhibitors and glucagon-like peptide-1 receptor agonists (GLP-1 RAs). These agents not only enhance glycemic control but also offer substantial cardiovascular and renal protection, making them key components in current evidence-based treatment algorithms.
+
+SGLT2 inhibitors, by promoting urinary glucose excretion, contribute to weight reduction, blood pressure lowering, and improved cardiovascular outcomes in patients with heart failure or chronic kidney disease. Meanwhile, GLP-1 RAs stimulate glucose-dependent insulin secretion, suppress glucagon, delay gastric emptying, and promote satiety, thereby aiding in weight management and reducing atherosclerotic events.
+
+This review critically examines the mechanisms of action, efficacy, adverse effect profiles, and comparative benefits of these newer agents. It also underscores the importance of early diagnosis, individualized therapy, patient adherence, and integration of lifestyle interventions for optimal long-term outcomes in T2DM management.

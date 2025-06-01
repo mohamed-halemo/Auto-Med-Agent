@@ -1,4 +1,10 @@
-Title: The epidemiology and pathogenesis of coronavirus disease (COVID-19) outbreak
-
-Abstract:
-In late 2019, a novel coronavirus (SARS-CoV-2) was identified in Wuhan, China, and has since led to a global pandemic. This review highlights the epidemiology, clinical features, transmission, and pathogenesis of COVID-19. SARS-CoV-2 enters cells via ACE2 receptors and spreads rapidly, especially in dense populations. Symptoms range from mild respiratory illness to severe pneumonia. Understanding virus-host interactions and immune responses remains critical for effective treatment and vaccine design.
+Title: The Epidemiology and Pathogenesis of Coronavirus Disease (COVID-19) Outbreak
+
+Abstract:
+In December 2019, a novel betacoronavirus, later named severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2), emerged in Wuhan, China, triggering a global public health crisis. The virus rapidly escalated into a pandemic, causing widespread morbidity and mortality. This review provides a comprehensive overview of the epidemiological trends, transmission dynamics, virological mechanisms, and pathogenesis of coronavirus disease 2019 (COVID-19).
+
+SARS-CoV-2 primarily infects human cells by binding to angiotensin-converting enzyme 2 (ACE2) receptors, abundantly expressed in the respiratory tract, gastrointestinal system, and cardiovascular tissues. Viral entry is facilitated by TMPRSS2 protease, which primes the spike protein for membrane fusion. The virus is highly transmissible via respiratory droplets, aerosols, and fomites, with asymptomatic carriers contributing significantly to its spread, particularly in densely populated regions.
+
+Clinical manifestations range from mild flu-like symptoms to severe pneumonia, acute respiratory distress syndrome (ARDS), multi-organ failure, and death, especially in individuals with comorbidities or advanced age. The immune response, including cytokine storm, plays a pivotal role in disease severity and progression. Understanding these virus-host interactions, immune evasion strategies, and the inflammatory cascade is vital for developing therapeutic interventions, monoclonal antibody treatments, and effective vaccine platforms.
+
+This review synthesizes current knowledge of COVID-19 to support evidence-based public health measures, clinical management strategies, and future pandemic preparedness.
