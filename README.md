@@ -1,152 +1,99 @@
-# AutoMed Agent 
+# 🧠 AutoMed AI Agent – Generative Medical Research Assistant
 
-> **An AI-powered medical assistant using Generative AI + RAG + Agentic Workflows**
-
-AutoMed Agent is a smart, multi-agent system built to help with:
-
-* Medical literature research using RAG (Retrieval-Augmented Generation)
-* Patient diagnosis from clinical notes with ICD-10 mapping
-* Simple orchestration to route queries to the correct expert agent
+> A generative AI agent that reads medical research papers, answers domain-specific questions, summarizes papers, performs PubMed searches, handles calculations, and learns from previous conversations.
 
 ---
 
+## 📌 Project Highlights
 
-## 🔄 Architecture Overview
+- 🧾 **Literature-Aware RAG Agent** using PubMed articles (PDF or Abstracts)
+- 🧠 **Conversational Memory** to retain context
+- 🔧 **Tools Integration**: PubMed search, calculator
+- 📚 **Automatic Question Generation** from research papers
+- 📏 **Evaluation** with ROUGE + BLEU
+- 💡 **Powered by**: HuggingFace Transformers, Sentence Transformers, Streamlit, FAISS
+
+---
+
+## 🏗️ System Architecture
 
 graph TD
-    UI[User Interface (Streamlit)] -->|Query| Orchestrator
-    Orchestrator -->|Research| LiteratureAgent
-    Orchestrator -->|Diagnosis| DiagnosisAgent
-    LiteratureAgent -->|Query PubMed FAISS| RAGModule
-    DiagnosisAgent -->|Analyze Text| GPTModule
-    DiagnosisAgent -->|Lookup| ICD10DB
-```
 
-* **Orchestrator**: Determines query type and routes to the right agent
-* **LiteratureAgent**: Uses FAISS + RAG to answer research questions
-* **DiagnosisAgent**: Suggests diagnosis + ICD-10 code from patient notes
+    A[User Input] --> B{Query Type?}
+    B -->|Medical Q/A| C[RAG Agent (PDF / Abstracts)]
+    B -->|Math| D[Calculator Tool]
+    B -->|PubMed| E[PubMed Search Tool]
+    C --> F[Answer + Summary]
+    D --> F
+    E --> F
+    F --> G[Conversation Memory]
+    G --> A
+---
+
+
+| Layer         | Tools Used                                   |
+| ------------- | -------------------------------------------- |
+| Frontend      | Streamlit                                    |
+| Backend Logic | Python + LangChain-like agent design         |
+| NLP Models    | Sentence Transformers (MiniLM), HF Pipelines |
+| Tools         | Custom Python tools (PubMed, Math)           |
+| Memory        | Session-based Memory                         |
+| Evaluation    | ROUGE, BLEU                                  |
 
 ---
 
-## ⚙️ Tech Stack
+git clone https://github.com/yourname/automed-ai-agent.git
+cd automed-ai-agent
 
-| Component       | Tech                                 |
-| --------------- | ------------------------------------ |
-| UI              | Streamlit                            |
-| LLM             | OpenAI / BioGPT                      |
-| Agent Framework | LangChain                            |
-| RAG             | FAISS + LangChain Retriever          |
-| Data            | Sample PubMed PDFs or CSVs           |
-| Deployment      | Streamlit Cloud / HuggingFace Spaces |
-
----
-
-## 🚀 Features (MVP)
-
-* ✉️ **Chat interface** to ask medical questions
-* 📃 **Upload patient notes** to get diagnosis
-* 🔎 **RAG-based literature search** with summaries
-* ⚖️ **ICD-10 code extraction** from diagnosis
-
----
-
-## ⚡ Setup & Installation
-
-### 1. Clone the repo
-
-```bash
-git clone https://github.com/mohamed-halemo/Auto-Med-Agent
-cd Auto-Med-Agent
-```
-
-### 2. Create a virtual environment
-
-```bash
-python -m venv venv
-source venv/bin/activate  # or venv\Scripts\activate on Windows
-```
-
-### 3. Install dependencies
-
-```bash
+# Install requirements
 pip install -r requirements.txt
-```
 
-### 4. Set up environment variables
-
-Create `.env` file:
-
-```env
-OPENAI_API_KEY=your_openai_key
-```
-
----
-
-## 🔄 Project Structure
-
+# Run the app
 ```bash
-Auto-Med-Agent/
+streamlit run app.py
+
+automed-ai-agent/
+│
+├── app.py                         # Streamlit frontend
 ├── agents/
-│   ├── orchestrator.py
-│   ├── literature_agent.py
-│   └── diagnosis_agent.py
+│   ├── literature_agent.py       # Handles RAG with summarization
+│   └── tool_agent.py             # Routes queries to tools or literature
+│
+├── tools/
+│   └── toolkit.py                # Calculator, PubMed search
+│
+├── evaluation/
+│   ├── generate_questions.py     # Uses QA pipeline to generate test set
+│   └── evaluate_answers.py       # BLEU + ROUGE evaluations
+│
 ├── data/
-│   ├── pubmed_papers/
-│   └── icd10.csv
-├── retriever/
-│   ├── build_faiss.py
-│   └── query_faiss.py
-├── app.py  # Streamlit UI
-├── .env.example
+│   └── generated_qas.json        # Auto-generated Q/A for evaluation
+│
+├── utils/
+│   └── helper.py                 # PDF & text loading utilities
+│
 ├── requirements.txt
 └── README.md
 ```
+# How It Works
+Upload a PDF or enter a PubMed topic.
 
----
+The agent creates document embeddings and builds a FAISS retriever.
 
-## ✅ How It Works
+You can ask:
 
-### 1. User sends query from Streamlit UI
+Domain questions → retrieved + summarized
 
-* The Orchestrator detects whether it's a research query or diagnosis
+calculate 7+3 → calculator tool
 
-### 2. For research:
+pubmed cancer → returns top IDs
 
-* The Literature Agent runs a RAG pipeline
-* FAISS retrieves chunks
-* GPT generates answer
+Memory tracks past Q&A to allow follow-ups.
 
-### 3. For diagnosis:
+ Metrics + Evaluation
+Generated 20 Q/A pairs from documents using Hugging Face's transformers pipeline.
 
-* GPT processes input
-* Extracts symptoms + maps to ICD-10 from CSV
+Evaluated answers using nltk BLEU and rouge_score metrics.
 
-### 4. Results shown in the UI
+Used this to benchmark the effectiveness of the current RAG setup.
 
----
-
-## 🚧 Example Prompts
-
-* “Latest treatments for diabetic neuropathy?” → Literature Agent
-* Upload a patient note → Diagnosis Agent
-
----
-
-## 🌟 Stretch Goals
-
-* Add synthetic case generator
-* Allow CSV upload of notes for batch diagnosis
-* Save chat history (LangChain memory)
-* Fine-tune a BioGPT model
-
----
-
-## 🚪 License
-
-MIT
-
----
-
-## 🚀 Author
-
-Built by Mohamed Hafez | AI Research Engineer | 2025
