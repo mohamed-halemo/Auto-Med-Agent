@@ -42,7 +42,7 @@ graph TD
 
 ---
 
-git clone https://github.com/mohamed-halemo/automed-ai-agent.git
+git clone https://github.com/mohamed-halemo/Auto-Med-Agent
 cd automed-ai-agent
 
 # Install requirements
@@ -76,7 +76,7 @@ automed-ai-agent/
 └── README.md
 ```
 # How It Works
-Upload a PDF or enter a PubMed topic.
+> Upload a PDF or enter a PubMed topic.
 
 The agent creates document embeddings and builds a FAISS retriever.
 
