@@ -58,14 +58,8 @@ class LiteratureAgent:
                 best_score = result["score"]
 
                 # Step 5: Guide the summarizer to focus on answering the query
-                prompt = f"""You are an expert assistant. Use the following passage to precisely answer the user's question.
-
-                Question: {query}
-                Passage: {context[:1000]}
-
-                Answer:"""
-                summary = self.summarizer(prompt, max_length=150, min_length=30, do_sample=False)[0]["summary_text"]
-
+                prompt = f"Answer the question: '{query}' based on the following passage:\n\n{context[:1000]}"
+                summary = self.summarizer(prompt)[0]["summary_text"]
 
         return (
             best_answer if best_answer else "No confident answer found.",
