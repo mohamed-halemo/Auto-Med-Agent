@@ -78,22 +78,22 @@ automed-ai-agent/
 # How It Works
 > Upload a PDF or enter a PubMed topic.
 
-The agent creates document embeddings and builds a FAISS retriever.
+> The agent creates document embeddings and builds a FAISS retriever.
 
-You can ask:
+> You can ask:
 
-Domain questions → retrieved + summarized
+> Domain questions → retrieved + summarized
 
-calculate 7+3 → calculator tool
+> calculate 7+3 → calculator tool
 
-pubmed cancer → returns top IDs
+> pubmed cancer → returns top IDs
 
-Memory tracks past Q&A to allow follow-ups.
+> Memory tracks past Q&A to allow follow-ups.
 
- Metrics + Evaluation
-Generated 20 Q/A pairs from documents using Hugging Face's transformers pipeline.
+> Metrics + Evaluation
+> Generated 20 Q/A pairs from documents using Hugging Face's transformers pipeline.
 
-Evaluated answers using nltk BLEU and rouge_score metrics.
+> Evaluated answers using nltk BLEU and rouge_score metrics.
 
-Used this to benchmark the effectiveness of the current RAG setup.
+> Used this to benchmark the effectiveness of the current RAG setup.
 
