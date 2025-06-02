@@ -21,7 +21,7 @@ graph TD
 
     A[User Input] --> B{Query Type?}
     B -->|Medical Q/A| C[RAG Agent (PDF / Abstracts)]
-    B -->|Math| D[Calculator Tool]
+    B -->|clinical trial| D[Clinical trial search tool]
     B -->|PubMed| E[PubMed Search Tool]
     C --> F[Answer + Summary]
     D --> F
