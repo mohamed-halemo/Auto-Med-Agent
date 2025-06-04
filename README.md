@@ -1,4 +1,4 @@
-# 🧠 AutoMed AI Agent – Generative Medical Research Assistant
+#  Auto-Med AI Agent – Generative Medical Research Assistant
 
 > A generative AI agent that reads medical research papers, answers domain-specific questions, summarizes papers, performs PubMed searches, handles calculations, and learns from previous conversations.
 
