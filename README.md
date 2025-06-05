@@ -24,7 +24,7 @@ graph TD
     B -->|clinical trial| D[Clinical trial search tool]
     B -->|PubMed| E[PubMed Search Tool]
     C --> F[Answer + Summary]
-    D --> F
+    D --> F 
     E --> F
     F --> G[Conversation Memory]
     G --> A
@@ -97,3 +97,6 @@ automed-ai-agent/
 
 > Used this to benchmark the effectiveness of the current RAG setup.
 
+```
+
+# By Mohamed Hafez
