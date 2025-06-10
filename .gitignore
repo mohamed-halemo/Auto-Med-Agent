@@ -2,3 +2,7 @@
 tools/__pycache__/toolkit.cpython-311.pyc
 tools/__pycache__/toolkit.cpython-311.pyc
 tools/__pycache__/toolkit.cpython-311.pyc
+agents/__pycache__/__init__.cpython-311.pyc
+agents/__pycache__/literature_agent.cpython-311.pyc
+agents/__pycache__/tool_agent.cpython-311.pyc
+utils/__pycache__/helper.cpython-311.pyc
