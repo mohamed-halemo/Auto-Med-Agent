@@ -47,8 +47,17 @@ def pubmed_search(query: str) -> str:
     for i, article in enumerate(articles):
         pmid = article.findtext(".//PMID")
         title = article.findtext(".//ArticleTitle")
+        abstract = article.findtext(".//Abstract/AbstractText", "No abstract available")
         link = f"https://pubmed.ncbi.nlm.nih.gov/{pmid}"
-        results.append(f"{i+1}. [{title}]({link})")
+        
+        # Create a summary of the abstract (first 2-3 sentences)
+        abstract_sentences = abstract.split('. ')
+        summary = '. '.join(abstract_sentences[:2]) + '.'
+        
+        # Format the output with title, summary, and link
+        results.append(f"{i+1}. {title}\n")
+        results.append(f"   Summary: {summary}\n")
+        results.append(f"   Link: {link}\n")
 
     return "\n".join(results)
 
@@ -69,8 +78,8 @@ def clinical_trial_search(condition: str):
     if not studies:
         return "No studies found."
 
-    results = []
-    for study in studies:
+    results = ["**Clinical Trials:**\n"]
+    for i, study in enumerate(studies):
         protocol = study.get("protocolSection", {})
         identification = protocol.get("identificationModule", {})
         status = protocol.get("statusModule", {})
@@ -79,7 +88,10 @@ def clinical_trial_search(condition: str):
         title = identification.get("briefTitle", "N/A")
         overall_status = status.get("overallStatus", "Unknown")
 
-        # Compose formatted result with direct link to ClinicalTrials.gov page
-        results.append(f"Title: {title}\nStatus: {overall_status}\nNCT ID: {nct_id}\nhttps://clinicaltrials.gov/ct2/show/{nct_id}\n")
+        # Format each study with clear sections
+        results.append(f"{i+1}. {title}")
+        results.append(f"\n   Status: {overall_status}")
+        results.append(f"\n   NCT ID: {nct_id}")
+        results.append(f"\n   Link: https://clinicaltrials.gov/ct2/show/{nct_id}")
 
     return "\n".join(results)
