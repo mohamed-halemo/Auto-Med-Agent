@@ -84,7 +84,6 @@ automed-ai-agent/
 
 > Domain questions → retrieved + summarized
 
-> calculate 7+3 → calculator tool
 
 > pubmed cancer → returns top IDs
 
