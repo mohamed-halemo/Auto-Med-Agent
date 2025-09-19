@@ -36,7 +36,7 @@ graph TD
 | Frontend      | Streamlit                                    |
 | Backend Logic | Python + LangChain-like agent design         |
 | NLP Models    | Sentence Transformers (MiniLM), HF Pipelines |
-| Tools         | Custom Python tools (PubMed, Math)           |
+| Tools         | Custom Python tools (PubMed,cLINICAL TRIALS)           |
 | Memory        | Session-based Memory                         |
 | Evaluation    | ROUGE, BLEU                                  |
 
