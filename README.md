@@ -98,24 +98,24 @@ User query
      ↓
 ToolUsingAgent.run()
  ┌─────────────┬─────────────┐
- │ "clinical"  │ "pubmed"    │
- ▼             ▼
+ │ "clinical"            │   "pubmed"    │
+ ▼                       ▼
 clinical_trial_search()  pubmed_search()
-                     ↓
-             LiteratureAgent.run()
-               ┌──────────────┐
-               │ Semantic     │
-               │ Search (FAISS│
-               │ + Bi-Encoder)│
-               └──────────────┘
-               ↓
-           Cross-Encoder Re-rank
-               ↓
-          QA Model (extractive)
-               ↓
-         Summarization Model
-               ↓
-      Best Answer + Summary Returned
+                                             ↓
+                                     LiteratureAgent.run()
+                                       ┌──────────────┐
+                                       │ Semantic     │
+                                       │ Search (FAISS│
+                                       │ + Bi-Encoder)│
+                                       └──────────────┘
+                                       ↓
+                                   Cross-Encoder Re-rank
+                                       ↓
+                                  QA Model (extractive)
+                                       ↓
+                                 Summarization Model
+                                       ↓
+                              Best Answer + Summary Returned
 
 
 # By Mohamed Hafez
