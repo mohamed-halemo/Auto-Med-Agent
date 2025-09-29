@@ -6,9 +6,8 @@
 
 ## 📌 Project Highlights
 
-- 🧾 **Literature-Aware RAG Agent** using PubMed articles (PDF or Abstracts)
-- 🧠 **Conversational Memory** to retain context
-- 🔧 **Tools Integration**: PubMed search, calculator
+- 🧾 **Literature-Aware RAG Agent** using txt data
+- 🔧 **Tools Integration**: PubMed search, clinical trials search
 - 📚 **Automatic Question Generation** from research papers
 - 📏 **Evaluation** with ROUGE + BLEU
 - 💡 **Powered by**: HuggingFace Transformers, Sentence Transformers, Streamlit, FAISS
@@ -26,7 +25,6 @@ graph TD
     C --> F[Answer + Summary]
     D --> F 
     E --> F
-    F --> G[Conversation Memory]
     G --> A
 ---
 
@@ -37,7 +35,6 @@ graph TD
 | Backend Logic | Python + LangChain-like agent design         |
 | NLP Models    | Sentence Transformers (MiniLM), HF Pipelines |
 | Tools         | Custom Python tools (PubMed,cLINICAL TRIALS)           |
-| Memory        | Session-based Memory                         |
 | Evaluation    | ROUGE, BLEU                                  |
 
 ---
