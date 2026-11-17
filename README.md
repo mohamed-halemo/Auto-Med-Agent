@@ -1,121 +1,82 @@
-#  Auto-Med AI Agent – Generative Medical Research Assistant
+# Auto-Med-Agent
 
-> A generative AI agent that reads medical research papers, answers domain-specific questions, summarizes papers, performs PubMed searches, handles calculations, and learns from previous conversations.
+Medical research assistant. Ask questions over medical papers (RAG), search PubMed, or find clinical trials, all from one Streamlit chat.
 
----
+<p>
+  <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/Hugging%20Face-FFD21E?style=flat-square&logo=huggingface&logoColor=black" alt="Hugging Face">
+  <img src="https://img.shields.io/badge/FAISS-0467DF?style=flat-square" alt="FAISS">
+  <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white" alt="Streamlit">
+</p>
 
-## 📌 Project Highlights
+## What it does
 
-- 🧾 **Literature-Aware RAG Agent** using txt data
-- 🔧 **Tools Integration**: PubMed search, clinical trials search
-- 📚 **Automatic Question Generation** from research papers
-- 📏 **Evaluation** with ROUGE + BLEU
-- 💡 **Powered by**: HuggingFace Transformers, Sentence Transformers, Streamlit, FAISS
+| Query | Example | Handled by |
+|---|---|---|
+| Medical question | `What are the symptoms of SARS-CoV-2?` | RAG over your papers |
+| `pubmed <topic>` | `pubmed COVID-19 treatment` | PubMed E-utilities API |
+| `clinical trial <condition>` | `clinical trial lung cancer` | ClinicalTrials.gov API |
 
----
+Upload new papers (.txt or .pdf) in the app and rebuild the index.
 
-## 🏗️ System Architecture
+## How it works
 
-graph TD
+```mermaid
+flowchart LR
+    Q[Query] --> R{Router}
+    R -->|pubmed| P[PubMed search]
+    R -->|clinical trial| C[ClinicalTrials.gov]
+    R -->|question| E[Embed query]
+    E --> F[FAISS top-k]
+    F --> X[Cross-encoder re-rank]
+    X --> A[Extractive QA]
+    A --> S[Summarize]
+    S --> O[Answer + summary]
+```
 
-    A[User Input] --> B{Query Type?}
-    B -->|Medical Q/A| C[RAG Agent (PDF / Abstracts)]
-    B -->|clinical trial| D[Clinical trial search tool]
-    B -->|PubMed| E[PubMed Search Tool]
-    C --> F[Answer + Summary]
-    D --> F 
-    E --> F
-    G --> A
----
+| Step | Model |
+|---|---|
+| Embeddings | `sentence-transformers/all-mpnet-base-v2` |
+| Re-ranking | `cross-encoder/ms-marco-MiniLM-L-6-v2` |
+| Answer extraction | `deepset/roberta-base-squad2` |
+| Summary | `facebook/bart-large-cnn` |
+| Eval questions | `valhalla/t5-base-qg-hl` |
 
+Evaluation: T5 generates Q&A pairs from the papers (`data/generated_qas.json`), then the agent's answers are scored with ROUGE and BLEU.
 
-| Layer         | Tools Used                                   |
-| ------------- | -------------------------------------------- |
-| Frontend      | Streamlit                                    |
-| Backend Logic | Python + LangChain-like agent design         |
-| NLP Models    | Sentence Transformers (MiniLM), HF Pipelines |
-| Tools         | Custom Python tools (PubMed,cLINICAL TRIALS)           |
-| Evaluation    | ROUGE, BLEU                                  |
+## Run it
 
----
-
-git clone https://github.com/mohamed-halemo/Auto-Med-Agent
-cd automed-ai-agent
-
-# Install requirements
-pip install -r requirements.txt
-
-# Run the app
 ```bash
+git clone https://github.com/mohamed-halemo/Auto-Med-Agent.git
+cd Auto-Med-Agent
+pip install -r requirements.txt
 streamlit run app.py
-
-automed-ai-agent/
-│
-├── app.py                         # Streamlit frontend
-├── agents/
-│   ├── literature_agent.py       # Handles RAG with summarization
-│   └── tool_agent.py             # Routes queries to tools or literature
-│
-├── tools/
-│   └── toolkit.py                # Calculator, PubMed search
-│
-├── evaluation/
-│   ├── generate_questions.py     # Uses QA pipeline to generate test set
-│   └── evaluate_answers.py       # BLEU + ROUGE evaluations
-│
-├── data/
-│   └── generated_qas.json        # Auto-generated Q/A for evaluation
-│
-├── utils/
-│   └── helper.py                 # PDF & text loading utilities
-│
-├── requirements.txt
-└── README.md
 ```
-# How It Works
-> Upload a PDF or enter a PubMed topic.
 
-> The agent creates document embeddings and builds a FAISS retriever.
+Models download from Hugging Face on first run (~2 GB). No API keys needed.
 
-> You can ask:
+Other scripts:
 
-> Domain questions → retrieved + summarized
+```bash
+python retriever/build_faiss.py        # rebuild the index from data/pubmed_papers/
+python qa_generator/generate_qas.py    # generate eval Q&A pairs
+```
 
-
-> pubmed cancer → returns top IDs
-
-> Memory tracks past Q&A to allow follow-ups.
-
-> Metrics + Evaluation
-> Generated 20 Q/A pairs from documents using Hugging Face's transformers pipeline.
-
-> Evaluated answers using nltk BLEU and rouge_score metrics.
-
-> Used this to benchmark the effectiveness of the current RAG setup.
+## Structure
 
 ```
-User query
-     ↓
-ToolUsingAgent.run()
- ┌─────────────┬─────────────┐
- │ "clinical"            │   "pubmed"    │
- ▼                       ▼
-clinical_trial_search()  pubmed_search()
-                                             ↓
-                                     LiteratureAgent.run()
-                                       ┌──────────────┐
-                                       │ Semantic     │
-                                       │ Search (FAISS│
-                                       │ + Bi-Encoder)│
-                                       └──────────────┘
-                                       ↓
-                                   Cross-Encoder Re-rank
-                                       ↓
-                                  QA Model (extractive)
-                                       ↓
-                                 Summarization Model
-                                       ↓
-                              Best Answer + Summary Returned
+app.py                     Streamlit UI
+agents/tool_agent.py       routes the query to a tool or RAG
+agents/literature_agent.py retrieval, re-ranking, QA, summary
+tools/toolkit.py           PubMed + ClinicalTrials.gov search
+retriever/build_faiss.py   chunk + embed + build FAISS index
+qa_generator/              T5 question generation
+evaluation/                ROUGE + BLEU
+data/pubmed_papers/        sample papers (breast cancer, COVID-19, diabetes)
+```
 
+## Limitations
 
-# By Mohamed Hafez
+- The sample corpus is small (3 papers). Add your own to make it useful.
+- Answers are extractive spans, not generated text.
+- Research and learning project. Not medical advice.
